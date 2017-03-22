@@ -31,7 +31,7 @@
 (defn particle-profile-between [a b]
   "Cretes an array which represents a particle profile"
   (map-indexed
-    (fn [i v] (if (math/between? a b i) 1 0))
+    (fn [i v] (if (math/within? a b i) 1 0))
     (repeat particle-profile-size 0)))
 
 (defn make-particles
@@ -45,7 +45,7 @@
 (defn make-matter []
   "returns a list of maps that contain the property identiefier and the ratio
   in which the matter possess it"
-  (let [particles (make-particles)]
+  (let [particles (make-particles 3)]
     {:particles particles
      :properties (map (fn [property]
                         {:property (:id property)
@@ -55,26 +55,32 @@
 ;;
 ;; Property definitions
 ;;
-(m/defproperty :elastic
+(defproperty :elastic
   {:name    "Elasticity"
-   :profile [(m/particle-profile-between 3 8)
-             (m/particle-profile-between 3 8)
-             (m/particle-profile-between 3 8)]})
+   :profile [(particle-profile-between 3 8)
+             (particle-profile-between 3 8)
+             (particle-profile-between 3 8)]})
 
-(m/defproperty :incendiary
+(defproperty :meterial
+  {:name    "Elasticity"
+   :profile [(particle-profile-between 0 11)
+             (particle-profile-between 0 11)
+             (particle-profile-between 0 11)]})
+
+(defproperty :incendiary
   {:name    "Incendary"
-   :profile [(m/particle-profile-between 1 5)
-             (m/particle-profile-between 1 5)
-             (m/particle-profile-between 1 5)]})
+   :profile [(particle-profile-between 1 5)
+             (particle-profile-between 1 5)
+             (particle-profile-between 1 5)]})
 
-(m/defproperty :hard
+(defproperty :hard
   {:name     "Hardness"
-   :profile [(m/particle-profile-between 7 9)
-             (m/particle-profile-between 6 8)
-             (m/particle-profile-between 5 7)]})
+   :profile [(particle-profile-between 7 9)
+             (particle-profile-between 6 8)
+             (particle-profile-between 5 7)]})
 
-(m/defproperty :reflective
+(defproperty :reflective
   {:name     "Reflectiveness"
-   :profile [(m/particle-profile-between 7 9)
-             (m/particle-profile-between 6 8)
-             (m/particle-profile-between 5 7)]})
+   :profile [(particle-profile-between 7 9)
+             (particle-profile-between 6 8)
+             (particle-profile-between 5 7)]})

@@ -4,11 +4,8 @@
 
 (defn position [e]
   "gets a vector from an entity"
-  [(:x e) (:y e)])
+  (:position e))
 
 (defn within-range? [a b distance]
   (math/within-range? (position a) (position b) distance))
 
-(defn make-ship [defs]
-  "create a ship"
-  (merge {:type ship} defs))
